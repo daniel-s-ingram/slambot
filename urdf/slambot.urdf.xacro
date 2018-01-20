@@ -10,6 +10,10 @@
 <xacro:property name = "base_height" value = "0.05" />
 <xacro:property name = "base_mass" value = "100.0" />
 
+<xacro:property name = "laser_mass" value = "0.1" />
+<xacro:property name = "laser_height" value = "0.1" />
+<xacro:property name = "laser_radius" value = "0.1" />
+
 	<link name = "base_link" >
 		<inertial>
 			<mass value = "${base_mass}" />
@@ -33,6 +37,33 @@
 			<origin xyz = "0 0 ${wheel_radius}" rpy = "0 0 0" />
 			<geometry>
 				<box size = "${base_width} ${base_length} ${base_height}" />
+			</geometry>
+		</collision>
+	</link>
+
+	<link name = "laser_link" >
+		<inertial>
+			<mass value = "${laser_mass}" />
+			<origin xyz = "0 0 0" rpy = "0 0 0" />
+			<inertia ixx = "0.0"
+					 ixy = "0.0"
+					 ixz = "0.0"
+					 iyy = "0.0"
+					 iyz = "0.0"
+					 izz = "0.0" />
+		</inertial>
+
+		<visual name = "laser_link_visual" >
+			<origin xyz = "0 0 0" rpy = "0 0 0" />
+			<geometry>
+				<cylinder length = "${laser_height}" radius = "${laser_radius}" />
+			</geometry>
+		</visual>
+
+		<collision name = "laser_link_collision" >
+			<origin xyz = "0 0 0" rpy = "0 0 0" />
+			<geometry>
+				<cylinder length = "${laser_height}" radius = "${laser_radius}" />
 			</geometry>
 		</collision>
 	</link>
@@ -145,6 +176,14 @@
 		</collision>
 	</link>
 
+	<joint name = "laser_joint" type = "revolute" >
+		<parent link = "base_link" />
+		<child link = "laser_link" />
+		<origin xyz = "0 ${base_length/2-laser_radius} ${wheel_radius+laser_height/2+base_height/2}" rpy = "0 0 0" />
+		<axis xyz = "0 0 1" />
+		<limit lower = "0.0" upper = "0.0" velocity = "0.0" effort = "0.0" />
+	</joint>
+
 	<joint name = "front_right_wheel_joint" type = "continuous" >
 		<parent link = "base_link" />
 		<child link = "front_right_wheel_link" />
@@ -218,11 +257,46 @@
     </transmission>
 
 	<gazebo>
-	  <static> false </static>
+		<static> false </static>
 
-	  <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-	    <robotNamespace> /slambot </robotNamespace>
-	  </plugin>
+		<plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+			<robotNamespace> /slambot </robotNamespace>
+		</plugin>
 	</gazebo>
+
+	<gazebo reference = "laser_link">
+		<sensor type="ray" name="laser">
+			<pose>0 0 ${laser_height/2+0.01} 0 0 1.571</pose>
+			<visualize>true</visualize>
+			<update_rate>40</update_rate>
+			<ray>
+		    	<scan>
+		      		<horizontal>
+		        		<samples>720</samples>
+		        		<resolution>1</resolution>
+		        		<min_angle>-1.570796</min_angle>
+		        		<max_angle>1.570796</max_angle>
+		      		</horizontal>
+		    	</scan>
+		    	
+		    	<range>
+		      		<min>0.10</min>
+		      		<max>30.0</max>
+		      		<resolution>0.01</resolution>
+		    	</range>
+		    	
+		    	<noise>
+		      		<type>gaussian</type>
+		      		<mean>0.0</mean>
+		      		<stddev>0.01</stddev>
+		    	</noise>
+		  	</ray>
+
+			<plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
+				<topicName>/scan</topicName>
+				<frameName>base_link</frameName>
+			</plugin>
+		</sensor>
+  	</gazebo>
 
 </robot>
