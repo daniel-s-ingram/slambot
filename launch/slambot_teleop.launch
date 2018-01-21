@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <node pkg="joy" type="joy_node" name="ps4_joy" output="screen" >
+    <param name="dev" type="string" value="/dev/input/js0" />
+    <param name="deadzone" value="0.12" />
+    <param name="autorepeat_rate" value="100.0" />
+  </node>
+
+  <node pkg="slambot" type="ps4_controller.py" name="ps4_controller" output="screen"> </node>
+
+</launch>
