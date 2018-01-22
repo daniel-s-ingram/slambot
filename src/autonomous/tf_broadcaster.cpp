@@ -1,5 +1,5 @@
 #include <ros/ros.h>
-#include <tf/transform.h>
+#include <tf/transform_broadcaster.h>
 
 int main(int argc, char** argv)
 {
@@ -16,9 +16,9 @@ int main(int argc, char** argv)
   {
     broadcaster.sendTransform(tf::StampedTransform(tf::Transform(tf::Quaternion(0, 0, 0, 1), 
                                                     tf::Vector3(x_offset, y_offset, z_offset)), 
-                                                  ros::Time::now(), 
-                                                  "base_link", 
-                                                  "laser_link"));
-    rate.sleep()
+                                                    ros::Time::now(), 
+                                                    "base_link", 
+                                                    "laser_link"));
+    rate.sleep();
   }
 }
