@@ -5,7 +5,7 @@ int main(int argc, char** argv)
 {
   float x_offset = 0.0, y_offset = 0.16, z_offset = 0.225;
 
-  ros::init(argc, argv, "slambot_tf_publisher");
+  ros::init(argc, argv, "tf_broadcaster");
   ros::NodeHandle nh;
 
   ros::Rate rate(40);
