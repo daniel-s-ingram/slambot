@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+
+<launch>
+	<node pkg="slambot" name="tf_broadcaster" type="tf_broadcaster" output="screen" />
+</launch>
