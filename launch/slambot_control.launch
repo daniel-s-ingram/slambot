@@ -2,7 +2,7 @@
 
 <launch>
 
-  <rosparam file="$(find slambot)/config/slambot.yaml" command="load"/>
+  <rosparam file="$(find slambot)/config/slambot_control.yaml" command="load"/>
 
   <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
         output="screen" ns="/slambot" args="diff_drive_controller joint_state_controller"/>

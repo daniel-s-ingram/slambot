@@ -15,7 +15,7 @@
   <node name = "rviz" pkg = "rviz" type = "rviz" output = "screen" />
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
     args="-urdf -model slambot -param robot_description"/>
-  <node name = "rqt_robot_steering" pkg = "rqt_robot_steering" type = "rqt_robot_steering" output = "screen" if="$(eval rqt)" />
+  <!--node name = "rqt_robot_steering" pkg = "rqt_robot_steering" type = "rqt_robot_steering" output = "screen" if="$(eval rqt)" /-->
 
   <include file="$(find slambot)/launch/slambot_control.launch"> </include>
   <include file="$(find slambot)/launch/slambot_teleop.launch" if="$(eval teleop)"> </include>

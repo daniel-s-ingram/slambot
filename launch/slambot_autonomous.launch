@@ -1,5 +1,30 @@
 <?xml version="1.0"?>
 
 <launch>
+
 	<node pkg="slambot" name="tf_broadcaster" type="tf_broadcaster" output="screen" />
+
+	<master auto="start"/>
+
+	<!-- Run the map server -->
+	<node name="map_server" pkg="map_server" type="map_server"/>
+	<node name="slam_gmapping" pkg="gmapping" type="slam_gmapping"/>
+
+	<!--- Run AMCL -->
+	<!--include file="$(find amcl)/examples/amcl_diff.launch" /-->
+
+	<node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+		<remap from="/cmd_vel" to="/slambot/diff_drive_controller/cmd_vel"/>
+		<rosparam file="$(find slambot)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+		<rosparam file="$(find slambot)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+		<rosparam file="$(find slambot)/config/local_costmap_params.yaml" command="load" />
+		<rosparam file="$(find slambot)/config/global_costmap_params.yaml" command="load" />
+		<rosparam file="$(find slambot)/config/base_local_planner_params.yaml" command="load" />
+	</node>
+
+	<!--node pkg="slambot" type="goal_test.py" name="goal_test" output="screen"/-->
+
+	<!--node pkg="tf" type="static_transform_publisher" name="static_transform_publisher" output="screen" 
+		args="0 0.0 0.0 0.0 0.0 0.0 map 100"/-->
+
 </launch>
