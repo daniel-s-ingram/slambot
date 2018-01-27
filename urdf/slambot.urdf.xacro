@@ -3,12 +3,12 @@
 
 <xacro:property name = "wheel_radius" value = "0.1" />
 <xacro:property name = "wheel_width" value = "0.075" />
-<xacro:property name = "wheel_mass" value = "0.1" />
+<xacro:property name = "wheel_mass" value = "10.0" />
 
 <xacro:property name = "base_width" value = "0.4" />
 <xacro:property name = "base_length" value = "0.5" />
 <xacro:property name = "base_height" value = "0.05" />
-<xacro:property name = "base_mass" value = "100.0" />
+<xacro:property name = "base_mass" value = "10000.0" />
 
 <xacro:property name = "laser_mass" value = "0.1" />
 <xacro:property name = "laser_height" value = "0.1" />
@@ -188,28 +188,28 @@
 		<parent link = "base_link" />
 		<child link = "front_right_wheel_link" />
 		<origin xyz = "${base_width/2+wheel_width/2} ${base_length/2-wheel_radius} ${wheel_radius}" rpy = "0 0 0" />
-		<axis xyz = "1 0 0" />
+		<axis xyz = "-1 0 0" />
 	</joint>
 
 	<joint name = "front_left_wheel_joint" type = "continuous" >
 		<parent link = "base_link" />
 		<child link = "front_left_wheel_link" />
 		<origin xyz = "-${base_width/2+wheel_width/2} ${base_length/2-wheel_radius} ${wheel_radius}" rpy = "0 0 0" />
-		<axis xyz = "1 0 0" />
+		<axis xyz = "-1 0 0" />
 	</joint>
 
 	<joint name = "back_right_wheel_joint" type = "continuous" >
 		<parent link = "base_link" />
 		<child link = "back_right_wheel_link" />
 		<origin xyz = "${base_width/2+wheel_width/2} -${base_length/2-wheel_radius} ${wheel_radius}" rpy = "0 0 0" />
-		<axis xyz = "1 0 0" />
+		<axis xyz = "-1 0 0" />
 	</joint>
 
 	<joint name = "back_left_wheel_joint" type = "continuous" >
 		<parent link = "base_link" />
 		<child link = "back_left_wheel_link" />
 		<origin xyz = "-${base_width/2+wheel_width/2} -${base_length/2-wheel_radius} ${wheel_radius}" rpy = "0 0 0" />
-		<axis xyz = "1 0 0" />
+		<axis xyz = "-1 0 0" />
 	</joint>
 
 	<transmission name = "front_right_wheel_motor" >
@@ -266,9 +266,9 @@
 
 	<gazebo reference = "laser_link">
 		<sensor type="ray" name="laser">
-			<pose>0 0 ${laser_height/2+0.01} 0 0 1.571</pose>
-			<visualize>true</visualize>
-			<update_rate>40</update_rate>
+			<pose> 0 0.01 ${laser_height/2} 0 0 1.571 </pose>
+			<visualize> false </visualize>
+			<update_rate> 40 </update_rate>
 			<ray>
 		    	<scan>
 		      		<horizontal>
@@ -293,8 +293,8 @@
 		  	</ray>
 
 			<plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
-				<topicName>/scan</topicName>
-				<frameName>base_link</frameName>
+				<topicName> /scan </topicName>
+				<frameName> base_link </frameName>
 			</plugin>
 		</sensor>
   	</gazebo>
