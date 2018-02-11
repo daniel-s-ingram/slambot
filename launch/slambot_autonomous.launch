@@ -7,11 +7,11 @@
 	<master auto="start"/>
 
 	<!-- Run the map server -->
-	<node name="map_server" pkg="map_server" type="map_server"/>
+	<!--node name="map_server" pkg="map_server" type="map_server"/-->
 	<node name="slam_gmapping" pkg="gmapping" type="slam_gmapping"/>
 
 	<!--- Run AMCL -->
-	<!--include file="$(find amcl)/examples/amcl_diff.launch" /-->
+	<include file="$(find amcl)/examples/amcl_diff.launch" />
 
 	<node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
 		<remap from="/cmd_vel" to="/slambot/diff_drive_controller/cmd_vel"/>

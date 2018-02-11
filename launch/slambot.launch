@@ -14,19 +14,19 @@
 
   <node name = "rviz" pkg = "rviz" type = "rviz" output = "screen" />
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-    args="-urdf -model slambot -param robot_description"/>
+    args="-urdf -model slambot -param robot_description -x 8 -y -8"/>
   <!--node name = "rqt_robot_steering" pkg = "rqt_robot_steering" type = "rqt_robot_steering" output = "screen" if="$(eval rqt)" /-->
 
   <include file="$(find slambot)/launch/slambot_control.launch"> </include>
   <include file="$(find slambot)/launch/slambot_teleop.launch" if="$(eval teleop)"> </include>
   <include file="$(find slambot)/launch/slambot_autonomous.launch" if="$(eval not teleop)"> </include>
-  <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find slambot)/world/slambot.world"/>
+  <include file="$(find gazebo_ros)/launch/willowgarage_world.launch">
+    <!--arg name="world_name" value="$(find slambot)/world/slambot.world"/>
     <arg name="debug" value="$(arg debug)" />
     <arg name="gui" value="$(arg gui)" />
     <arg name="paused" value="$(arg paused)" />
     <arg name="use_sim_time" value="$(arg use_sim_time)"/>
-    <arg name="headless" value="$(arg headless)"/>
+    <arg name="headless" value="$(arg headless)"/-->
   </include>
 
 </launch>
