@@ -41,7 +41,7 @@
 		</collision>
 	</link>
 
-	<link name = "laser_link" >
+	<!--link name = "laser_link" >
 		<inertial>
 			<mass value = "${laser_mass}" />
 			<origin xyz = "0 0 0" rpy = "0 0 0" />
@@ -66,7 +66,7 @@
 				<cylinder length = "${laser_height}" radius = "${laser_radius}" />
 			</geometry>
 		</collision>
-	</link>
+	</link-->
 
 	<link name = "front_right_wheel_link" >
 		<inertial>
@@ -176,13 +176,13 @@
 		</collision>
 	</link>
 
-	<joint name = "laser_joint" type = "revolute" >
+	<!--joint name = "laser_joint" type = "revolute" >
 		<parent link = "base_link" />
 		<child link = "laser_link" />
 		<origin xyz = "0 ${base_length/2-laser_radius} ${wheel_radius+laser_height/2+base_height/2}" rpy = "0 0 0" />
 		<axis xyz = "0 0 1" />
 		<limit lower = "0.0" upper = "0.0" velocity = "0.0" effort = "0.0" />
-	</joint>
+	</joint-->
 
 	<joint name = "front_right_wheel_joint" type = "continuous" >
 		<parent link = "base_link" />
@@ -264,9 +264,10 @@
 		</plugin>
 	</gazebo>
 
-	<gazebo reference = "laser_link">
+	<gazebo reference = "base_link">
 		<sensor type="ray" name="laser">
-			<pose> 0 0.01 ${laser_height/2} 0 0 1.571 </pose>
+			<!--pose> 0 0.01 ${laser_height/2} 0 0 1.571 </pose-->
+			<pose> 0 0 ${2.5*laser_height} 0 0 1.571 </pose>
 			<visualize> false </visualize>
 			<update_rate> 40 </update_rate>
 			<ray>
