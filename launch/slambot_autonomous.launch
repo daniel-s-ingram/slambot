@@ -6,11 +6,9 @@
 
 	<master auto="start"/>
 
-	<!-- Run the map server -->
-	<!--node name="map_server" pkg="map_server" type="map_server"/-->
+	<node name="map_server" pkg="map_server" type="map_server" args="$(find slambot)/map/map.yaml"/>
 	<node name="slam_gmapping" pkg="gmapping" type="slam_gmapping"/>
 
-	<!--- Run AMCL -->
 	<include file="$(find amcl)/examples/amcl_diff.launch" />
 
 	<node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
@@ -21,10 +19,5 @@
 		<rosparam file="$(find slambot)/config/global_costmap_params.yaml" command="load" />
 		<rosparam file="$(find slambot)/config/base_local_planner_params.yaml" command="load" />
 	</node>
-
-	<!--node pkg="slambot" type="goal_test.py" name="goal_test" output="screen"/-->
-
-	<!--node pkg="tf" type="static_transform_publisher" name="static_transform_publisher" output="screen" 
-		args="0 0.0 0.0 0.0 0.0 0.0 map 100"/-->
 
 </launch>
