@@ -7,7 +7,7 @@
 	<master auto="start"/>
 
 	<node name="map_server" pkg="map_server" type="map_server" args="$(find slambot)/map/map.yaml"/>
-	<node name="slam_gmapping" pkg="gmapping" type="slam_gmapping"/>
+	<!--node name="slam_gmapping" pkg="gmapping" type="slam_gmapping"/-->
 
 	<include file="$(find amcl)/examples/amcl_diff.launch" />
 
