@@ -12,7 +12,9 @@
 
   <param name="robot_description" command="$(find xacro)/xacro '$(find slambot)/urdf/slambot.urdf.xacro'" />
 
-  <node name = "rviz" pkg = "rviz" type = "rviz" output = "screen" />
+  <node name = "rviz" pkg = "rviz" type = "rviz" output = "screen" 
+    args="-d $(find slambot)/rviz/slambot.rviz"/>
+
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
     args="-urdf -model slambot -param robot_description -x 8 -y -8"/>
   <!--node name = "rqt_robot_steering" pkg = "rqt_robot_steering" type = "rqt_robot_steering" output = "screen" if="$(eval rqt)" /-->
