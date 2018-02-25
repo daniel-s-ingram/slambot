@@ -275,8 +275,8 @@
 		      		<horizontal>
 		        		<samples>720</samples>
 		        		<resolution>1</resolution>
-		        		<min_angle>-1.570796</min_angle>
-		        		<max_angle>1.570796</max_angle>
+		        		<min_angle>-${pi}</min_angle>
+		        		<max_angle>${pi}</max_angle>
 		      		</horizontal>
 		    	</scan>
 		    	
@@ -298,6 +298,7 @@
 				<frameName> base_link </frameName>
 			</plugin>
 		</sensor>
+		<material> Gazebo/Orange </material>
   	</gazebo>
 
 </robot>
